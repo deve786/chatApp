@@ -142,7 +142,11 @@ function Chat() {
                     <CameraIcon className='w-6 cursor-pointer' />
                     <MicrophoneIcon className='w-6 cursor-pointer' />
                 </div>
-                <div className='w-full bg-cyan-800 rounded'>
+                <div className='w-full bg-cyan-800 rounded flex items-center ' >
+                    <label htmlFor="file" className='flex md:hidden'>
+                        <PhotoIcon className='w-6 cursor-pointer ' />
+                        <input type="file" id="file" onChange={handleImg} className='hidden' disabled={isCurrentUserBlocked || isRecieverBlocked} />
+                    </label>
                     <input type="text" className='bg-transparent outline-none border-none px-2 py-1 w-full' onChange={e => setText(e.target.value)} value={text} />
                 </div>
                 <div className='flex gap-2'>
