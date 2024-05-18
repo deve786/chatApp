@@ -78,7 +78,7 @@ function Login() {
     return (
 
         <>
-            <div className='flex flex-col justify-center items-center gap-3'>
+            <div className='flex flex-1 flex-col justify-center items-center gap-3'>
                 <h3 className='text-2xl font-bold'>Welcome back</h3>
                 <form onSubmit={handleSignIn} className='flex flex-col justify-center items-center gap-3'>
                     <input type="text" className='bg-slate-500 px-3 py-2 outline-none border-none' name='email' placeholder='Email' />
@@ -90,7 +90,7 @@ function Login() {
             <div className='w-px bg-stone-400'>
 
             </div>
-            <div className='flex flex-col justify-center items-center gap-3'>
+            <div className='flex flex-1 flex-col justify-center items-center gap-3'>
 
                 <h3 className='text-2xl font-bold'>Create an Account</h3>
                 <form onSubmit={handleSignUp} className='flex flex-col justify-center items-center gap-3'>
