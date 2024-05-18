@@ -91,7 +91,7 @@ function Chat() {
     }, [chatId])
 
     return (
-        <div className='flex flex-col flex-auto border-x-2 p-5 justify-between'>
+        <div className='flex flex-col flex-auto p-5 justify-between'>
             <div>
                 <div className='chat-top flex justify-between border-b pb-3 mb-3'>
                     <div className='user items-center flex gap-2 px-3'>
@@ -134,9 +134,9 @@ function Chat() {
             </div>
 
             <div className='flex items-center justify-between gap-1 mt-3'>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 flex-rows hidden md:flex'>
                     <label htmlFor="file">
-                        <PhotoIcon className='w-6 cursor-pointer' />
+                        <PhotoIcon className='w-6 cursor-pointer ' />
                         <input type="file" id="file" onChange={handleImg} className='hidden' disabled={isCurrentUserBlocked || isRecieverBlocked} />
                     </label>
                     <CameraIcon className='w-6 cursor-pointer' />

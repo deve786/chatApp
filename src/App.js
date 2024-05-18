@@ -1,4 +1,3 @@
-// App.js
 import { useEffect } from 'react';
 import './App.css';
 import Chat from './Chat';
@@ -27,16 +26,20 @@ function App() {
   console.log(currentuser);
 
   return (
-    <div className="App bg-slate-400 min-h-screen flex  justify-center items-center text-white">
-      <div className='flex flex-col sm:flex-row w-[90%] sm:w-[80%] bg-neutral-600 min-h-[70%] rounded-2xl gap-5 p-5'>
+    <div className="App bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex justify-center items-center text-white">
+      <div className='flex flex-col sm:flex-row w-[90%] sm:w-[70%] bg-neutral-800 bg-opacity-50 backdrop-blur-sm min-h-[70%] rounded-2xl gap-5 p-5 shadow-2xl'>
         {currentuser ? (
-          <>
-            <div className="flex flex-col sm:flex-row flex-1">
-              <ChatList />
-              {chatId && <Chat />}
-              {chatId && <ChatDetails />}
+          <div className="flex flex-col sm:flex-row flex-1">
+            <ChatList />
+            <div className='w-px bg-stone-400'>
+
             </div>
-          </>
+            {chatId && <Chat />}
+            <div className='w-px bg-stone-400  hidden md:block'>
+
+            </div>
+            {chatId && <ChatDetails />}
+          </div>
         ) : (
           <Login />
         )}
