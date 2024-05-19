@@ -8,6 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './lib/firebase';
 import { useUserStore } from './lib/userStore';
 import { useChatStore } from './lib/chatStore';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const { currentuser, isLoading, fetchUserInfo } = useUserStore();
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <div className="App bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex justify-center items-center text-white">
-      <div className='flex flex-col sm:flex-row w-[90%] sm:w-[70%] bg-neutral-800 bg-opacity-50 backdrop-blur-sm min-h-[70%] rounded-2xl gap-5 p-5 shadow-2xl'>
+      <div className='flex flex-col sm:flex-row w-[90%] sm:w-[90%] bg-neutral-800 bg-opacity-50 backdrop-blur-sm min-h-[70%] rounded-2xl gap-5 p-5 shadow-2xl'>
         {currentuser ? (
           <div className="flex flex-col sm:flex-row flex-1">
             <ChatList />
@@ -44,6 +45,7 @@ function App() {
           <Login />
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

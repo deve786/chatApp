@@ -2,6 +2,9 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import React, { useState } from 'react'
 import { auth, db } from './lib/firebase'
 import { doc, setDoc } from 'firebase/firestore'
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+
+
 
 import Upload from './lib/Upload'
 
@@ -46,10 +49,32 @@ function Login() {
                 chats: []
 
             })
-            alert("Account Created")
+            toast.success('Account Created Successfully...', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+
         }
         catch (err) {
             console.log(err);
+            toast.success(err, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         }
         finally {
             setLoading(false)
@@ -61,11 +86,21 @@ function Login() {
         setLoading(true)
         const formData = new FormData(e.target)
         const { email, password } = Object.fromEntries(formData)
-        
+
         try {
             const res = await signInWithEmailAndPassword(auth, email, password)
-            console.log("loginned");
-        }   
+            toast.success('Login Success...', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
         catch (err) {
             console.log(err);
         }
@@ -105,7 +140,7 @@ function Login() {
                     <button className='bg-sky-600 px-5 py-2 rounded' disable={loading} >Sign Up</button>
                 </form>
             </div>
-
+            
         </>
 
     )

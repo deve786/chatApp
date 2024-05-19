@@ -4,6 +4,7 @@ import { useUserStore } from './lib/userStore'
 import { auth, db } from './lib/firebase'
 import { useChatStore } from './lib/chatStore'
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { Bounce, toast } from 'react-toastify'
 
 function ChatDetails() {
   const { chatId, user, isRecieverBlocked, isCurrentUserBlocked, changeBlock } = useChatStore()
@@ -66,7 +67,20 @@ function ChatDetails() {
         <button onClick={handleBlock} className='px-4 py-1 bg-red-500 rounded'>
           {isCurrentUserBlocked ? "You are Blocked" : isRecieverBlocked ? "User Blocked" : "Block User"}
         </button>
-        <button className='px-4 py-1 bg-blue-500 rounded' onClick={() => auth.signOut()}>Log Out</button>
+        <button className='px-4 py-1 bg-blue-500 rounded' onClick={() => {
+          auth.signOut()
+          toast.success('Logout...', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+        });
+        }}>Log Out</button>
       </div>
     </div>
   )

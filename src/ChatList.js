@@ -59,7 +59,7 @@ function ChatList() {
   console.log(chats);
 
   return (
-    <div className='flex-1 p-5'>
+    <div className='flex-1 p-3'>
       <div className='chat-left gap-3 flex flex-col'>
         <div className='flex justify-between'>
           <div className='user items-center flex gap-2 font-bold px-3'>
@@ -78,18 +78,19 @@ function ChatList() {
             <input type="text" className='bg-transparent border-none outline-none w-[100%] px-2 py-1' placeholder='search...' onChange={(e) => setInput(e.target.value)} />
           </div>
           {addUser ? (
-            <PlusCircleIcon className='w-6 cursor-pointer' onClick={() => setAddUser(false)} />
+            <MinusCircleIcon className='w-6 cursor-pointer' onClick={() => setAddUser(false)} />
           ) : (
-            <MinusCircleIcon className='w-6 cursor-pointer' onClick={() => setAddUser(true)} />
+
+            <PlusCircleIcon className='w-6 cursor-pointer' onClick={() => setAddUser(true)} />
           )}
         </div>
         <div className='mt-7 overflow-y-auto max-h-80'>
           {filteredChat.map(chat => (
-            <div key={chat.chatId} onClick={() => handleSelect(chat)} style={{ backgroundColor: chat?.isSeen ? "transparent" : "#5183fe" }} className=' user cursor-pointer items-center flex gap-2 mb-2 pb-3 items-center border-b hover:bg-gray-700 px-3'>
+            <div key={chat.chatId} onClick={() => handleSelect(chat)} style={{ backgroundColor: chat?.isSeen ? "transparent" : "#5183fe" }} className=' user cursor-pointer pt-3 items-center flex gap-2 mb-2 pb-3 items-center border-b hover:bg-gray-700 px-3'>
               <img src={chat.user.blocked.includes(currentuser.id) ? "./avatar.jpg" : chat.user.avatar || "./avatar.jpg"} alt="" className='w-9 rounded-full h-9' />
               <div className='flex flex-col leading-5'>
                 <p className='font-bold'>{chat.user.blocked.includes(currentuser.id) ? "User" : chat.user.username}</p>
-                <p>{chat.lastMessage}</p>
+                <p className='text-xs'>{chat.lastMessage}</p>
               </div>
             </div>
           ))}
