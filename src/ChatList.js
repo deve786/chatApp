@@ -90,7 +90,7 @@ function ChatList() {
               <img src={chat.user.blocked.includes(currentuser.id) ? "./avatar.jpg" : chat.user.avatar || "./avatar.jpg"} alt="" className='w-9 rounded-full h-9' />
               <div className='flex flex-col leading-5'>
                 <p className='font-bold'>{chat.user.blocked.includes(currentuser.id) ? "User" : chat.user.username}</p>
-                <p className='text-xs'>{chat.lastMessage}</p>
+                <p className='text-xs'>{chat.lastMessage?chat.lastMessage.slice(0,25)+'...':""}</p>
               </div>
             </div>
           ))}

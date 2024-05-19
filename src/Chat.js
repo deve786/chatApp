@@ -1,6 +1,6 @@
 import { CameraIcon, FaceSmileIcon, InformationCircleIcon, MicrophoneIcon, PhoneIcon, PhotoIcon } from '@heroicons/react/16/solid'
 import EmojiPicker from 'emoji-picker-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { db } from './lib/firebase'
 import { arrayUnion, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore'
 import { useChatStore } from './lib/chatStore'
@@ -11,12 +11,17 @@ function Chat() {
     const [open, setOpen] = useState(false)
     const [text, setText] = useState("")
     const [chat, setChat] = useState()
+
     const [img, setImg] = useState({
         file: null,
         url: '',
     })
     const { chatId, user, isRecieverBlocked, isCurrentUserBlocked } = useChatStore()
     const { currentuser } = useUserStore()
+
+
+
+    const endRef = useRef(null)
 
     const emojiHandle = e => {
         setText((prev) => prev + e.emoji)
@@ -81,6 +86,7 @@ function Chat() {
     }
 
     useEffect(() => {
+        endRef.current?.scrollIntoView({behaviour:'smooth'})
         const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
             setChat(res.data())
         })
@@ -130,7 +136,9 @@ function Chat() {
                             </div>
                         </div>
                     )}
+                    
                 </div>
+                <div ref={endRef}></div>
             </div>
 
             <div className='flex items-center justify-between gap-1 mt-3'>
