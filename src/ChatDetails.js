@@ -1,16 +1,16 @@
 import { ArrowDownTrayIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/16/solid'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUserStore } from './lib/userStore'
 import { auth, db } from './lib/firebase'
 import { useChatStore } from './lib/chatStore'
-import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { arrayRemove, arrayUnion, doc, onSnapshot, updateDoc } from 'firebase/firestore'
 import { Bounce, toast } from 'react-toastify'
 
-function ChatDetails({data}) {
-  
+function ChatDetails({ data }) {
+  const [chatMedia, setChatMedia] = useState([]);
   const { chatId, user, isRecieverBlocked, isCurrentUserBlocked, changeBlock } = useChatStore()
   const { currentuser } = useUserStore()
-
+  const [chatMedias,setChatMedias]=useState(false)
   const handleBlock = async () => {
     if (!user) return;
 
@@ -26,15 +26,27 @@ function ChatDetails({data}) {
       console.log(error);
     }
   }
+  useEffect(() => {
+    // Fetch chat media data
+    const unsubscribe = onSnapshot(doc(db, 'chats', chatId), (snapshot) => {
+      const chatData = snapshot.data();
+      if (chatData && chatData.messages) {
+        const media = chatData.messages.filter(message => message.img);
+        setChatMedia(media);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [chatId]);
   console.log(isCurrentUserBlocked);
-  console.log(isRecieverBlocked);
+  console.log(chatMedia);
   return (
-    <div className='flex-1  justify-between border-s border-gray-500 flex flex-col ' style={{display:data?'flex':'none'}}>
+    <div className='flex-1  justify-between border-s border-gray-500 flex flex-col ' style={{ display: data ? 'flex' : 'none' }}>
       <div className='flex flex-col'>
         <div className='flex justify-center flex-col items-center  border-gray-500 border-b p-5'>
           <img src={user?.avatar || './avatar.jpg'} alt="" className='rounded-full w-16 h-16' />
           <p className='font-bold'>{user?.username}</p>
-          
+
         </div>
 
         <div className='p-5'>
@@ -46,21 +58,24 @@ function ChatDetails({data}) {
             <p className='text-md'>Chat Settings</p>
             <ChevronUpIcon className='w-6 cursor-pointer' />
           </div>
-          <div className='flex justify-between px-2 py-3'>
+          <div className='flex justify-between px-2 py-3' onClick={()=>{setChatMedias(prev=>!prev)}}>
             <p className='text-md'>Shared Photos</p>
-            <ChevronDownIcon className='w-6 cursor-pointer' />
+           { 
+           chatMedias?
+           <ChevronUpIcon className='w-6 cursor-pointer'  />
+           :
+           <ChevronDownIcon className='w-6 cursor-pointer' />
+           }
           </div>
-          <div className='flex justify-between px-2 py-3'>
-            <img src="./imag1.jpeg" alt="" className='w-10 rounded' />
-            <ArrowDownTrayIcon className='w-6 cursor-pointer' />
-          </div>
-          <div className='flex justify-between px-2 py-3'>
-            <img src="./image2.jpeg" alt="" className='w-10 h-8 rounded' />
-            <ArrowDownTrayIcon className='w-6  cursor-pointer' />
-          </div>
-          <div className='flex justify-between px-2 py-3'>
-            <img src="./image3.jpeg" alt="" className='w-10 rounded' />
-            <ArrowDownTrayIcon className='w-6 cursor-pointer' />
+          <div className='overflow-scroll h-52'>
+            {chatMedia.map((media, index) => (
+              <div key={index} className="flex justify-between px-2 py-3 " style={{display:chatMedias?'none':'flex'}} >
+                <img src={media.img} alt="Media" className='w-10 h-10 rounded' />
+                <a href={media.img} download target='_blank'>
+                  <ArrowDownTrayIcon className='w-6 cursor-pointer' />
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -81,7 +96,7 @@ function ChatDetails({data}) {
             progress: undefined,
             theme: "light",
             transition: Bounce,
-        });
+          });
         }}>Log Out</button>
       </div>
     </div>
