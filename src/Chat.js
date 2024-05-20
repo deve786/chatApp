@@ -8,7 +8,7 @@ import { useUserStore } from './lib/userStore';
 import Upload from './lib/Upload';
 
 function Chat({data}) {
-   
+   const [sndLoading, setSndLoading] = useState(false)
     const [open, setOpen] = useState(false);
     const [text, setText] = useState("");
     const [chat, setChat] = useState();
@@ -61,6 +61,7 @@ function Chat({data}) {
     };
 
     const handleSend = async () => {
+        setSndLoading(true)
         if (text === "") return;
         let imgUrl = null;
 
@@ -106,6 +107,7 @@ function Chat({data}) {
         });
 
         setText("");
+        setSndLoading(false)
     };
   
 
@@ -197,7 +199,7 @@ function Chat({data}) {
                             </div>
                         )}
                     </div>
-                    <button className='px-4 py-1 bg-sky-200 rounded text-black sndBtn disabled:cursor-not-allowed'  onClick={handleSend} disabled={isCurrentUserBlocked || isRecieverBlocked}>Send</button>
+                    <button className='px-4 py-1 bg-sky-200 rounded text-black sndBtn disabled:cursor-not-allowed'  onClick={handleSend}  disabled={isCurrentUserBlocked || isRecieverBlocked || sndLoading}>Send</button>
                 </div>
             </div>
         </div>
