@@ -148,8 +148,8 @@ function Chat({data}) {
                         <div key={message.createdAt} className={`flex ${message.senderId === currentuser.id ? 'justify-end' : 'justify-start'}`}>
                             <div className={`flex flex-col gap-2 mt-2 ${message.senderId === currentuser.id ? 'items-end' : 'items-start'}`}>
                             {message.img && (
-                                    <div className='message'>
-                                        <img src={message.img} alt="" className='w-25' />
+                                    <div className='message '>
+                                        <img src={message.img} alt="" className='w-25 rounded' />
                                     </div>
                                 )}
                                 <div className={`${message.senderId === currentuser.id ? 'bg-blue-400 text-white' : 'bg-gray-100 text-black'} w-52 px-2 py-1 rounded`}>
@@ -160,13 +160,13 @@ function Chat({data}) {
                             </div>
                         </div>
                     ))}
-                    {/* {img.url && (
-                        <div className='message flex gap-2 mt-2 justify-end'>
+                     {img.url && (
+                        <div className='message flex gap-2 mt-2 justify-end rounded'>
                             <div>
                                 <img src={img.url} alt="" className='w-52' />
                             </div>
                         </div>
-                    )} */}
+                    )} 
                     
                 </div>
                 <div ref={endRef}></div>
