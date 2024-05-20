@@ -147,25 +147,26 @@ function Chat({data}) {
                         
                         <div key={message.createdAt} className={`flex ${message.senderId === currentuser.id ? 'justify-end' : 'justify-start'}`}>
                             <div className={`flex flex-col gap-2 mt-2 ${message.senderId === currentuser.id ? 'items-end' : 'items-start'}`}>
-                                <div className={`${message.senderId === currentuser.id ? 'bg-blue-400 text-white' : 'bg-gray-100 text-black'} w-52 px-2 py-1 rounded`}>
-                                    <p>{message.text}</p>
-                                </div>
-                                <p className='text-xs'>{calculateTimeAgo(message.createdAt)}</p>
-                                {message.img && (
+                            {message.img && (
                                     <div className='message'>
                                         <img src={message.img} alt="" className='w-25' />
                                     </div>
                                 )}
+                                <div className={`${message.senderId === currentuser.id ? 'bg-blue-400 text-white' : 'bg-gray-100 text-black'} w-52 px-2 py-1 rounded`}>
+                                    <p>{message.text}</p>
+                                </div>
+                                <p className='text-xs'>{calculateTimeAgo(message.createdAt)}</p>
+                                
                             </div>
                         </div>
                     ))}
-                    {img.url && (
+                    {/* {img.url && (
                         <div className='message flex gap-2 mt-2 justify-end'>
                             <div>
                                 <img src={img.url} alt="" className='w-52' />
                             </div>
                         </div>
-                    )}
+                    )} */}
                     
                 </div>
                 <div ref={endRef}></div>
