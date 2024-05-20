@@ -26,10 +26,10 @@ function ChatDetails({data}) {
       console.log(error);
     }
   }
-  console.log(data);
-
+  console.log(isCurrentUserBlocked);
+  console.log(isRecieverBlocked);
   return (
-    <div className='flex-1  justify-between border-s border-gray-500 flex flex-col' style={{display:data?'none':'flex'}}>
+    <div className='flex-1  justify-between border-s border-gray-500 flex flex-col ' style={{display:data?'flex':'none'}}>
       <div className='flex flex-col'>
         <div className='flex justify-center flex-col items-center  border-gray-500 border-b p-5'>
           <img src={user?.avatar || './avatar.jpg'} alt="" className='rounded-full w-16 h-16' />

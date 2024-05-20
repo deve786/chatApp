@@ -125,7 +125,7 @@ function Chat({data}) {
     console.log(chat);
 
     return (
-        <div className='flex flex-col flex-auto border-s border-gray-500  justify-between'>
+        <div className='flex flex-col flex-auto border-s border-gray-500  justify-around'>
             <div>
                 <div className='chat-top flex justify-between border-b  border-gray-500 p-5  mb-3 cursor-pointer' onClick={toggleUserDetail}>
                     <div className='user items-center flex gap-2 px-3'>
@@ -142,7 +142,7 @@ function Chat({data}) {
                     </div>
                 </div>
 
-                <div className='chat flex flex-col gap-3 py-5 h-96  overflow-scroll p-3'>
+                <div className='chat flex flex-col gap-3 py-5 h-[30rem]  overflow-scroll p-3'>
                     {chat?.messages?.map((message) => (
                         
                         <div key={message.createdAt} className={`flex ${message.senderId === currentuser.id ? 'justify-end' : 'justify-start'}`}>
@@ -171,7 +171,7 @@ function Chat({data}) {
                 <div ref={endRef}></div>
             </div>
 
-            <div className='flex items-center justify-between gap-1 mt-3 p-3'>
+            <div className='flex items-center justify-between gap-1  p-3 '>
                 <div className='flex gap-2 flex-rows hidden md:flex'>
                     <label htmlFor="file">
                         <PhotoIcon className='w-6 cursor-pointer ' />
@@ -183,20 +183,20 @@ function Chat({data}) {
                 <div className='w-full bg-cyan-800 rounded flex items-center '>
                     <label htmlFor="file" className='flex md:hidden'>
                         <PhotoIcon className='w-6 cursor-pointer ' />
-                        <input type="file" id="file" onChange={handleImg} className='hidden' disabled={isCurrentUserBlocked || isRecieverBlocked} />
+                        <input type="file" id="file" onChange={handleImg} className='hidden disabled:cursor-not-allowed' disabled={isCurrentUserBlocked || isRecieverBlocked} />
                     </label>
-                    <input type="text" className='bg-transparent outline-none border-none px-2 py-1 w-full' onChange={e => setText(e.target.value)} value={text} />
+                    <input type="text" className='bg-transparent outline-none border-none px-2 py-1 w-full disabled:cursor-not-allowed' disabled={isCurrentUserBlocked || isRecieverBlocked} onChange={e => setText(e.target.value)} value={text} />
                 </div>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 items-center'>
                     <div className='relative'>
-                        <FaceSmileIcon className='w-6 cursor-pointer' onClick={() => setOpen((prev) => !prev)} />
+                        <FaceSmileIcon className='w-6 cursor-pointer disabled:cursor-not-allowed' onClick={() => setOpen((prev) => !prev)} disabled={isCurrentUserBlocked || isRecieverBlocked} />
                         {open && (
                             <div className='absolute bottom-10 left-0'>
                                 <EmojiPicker onEmojiClick={emojiHandle} />
                             </div>
                         )}
                     </div>
-                    <button className='px-4 py-1 bg-sky-200 rounded text-black sndBtn' onClick={handleSend} disabled={isCurrentUserBlocked || isRecieverBlocked}>Send</button>
+                    <button className='px-4 py-1 bg-sky-200 rounded text-black sndBtn disabled:cursor-not-allowed'  onClick={handleSend} disabled={isCurrentUserBlocked || isRecieverBlocked}>Send</button>
                 </div>
             </div>
         </div>

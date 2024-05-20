@@ -70,7 +70,7 @@ function ChatList() {
             <img src={currentuser.avatar || "./avatar.jpg"} alt="" className='md:w-9 rounded-full md:h-9 w-6 h-6 object-cover' />
             <p className='md:text-sm text-xs'>{currentuser.username}</p>
           </div>
-          <div className='icons flex gap-1 p-3 md:gap-3'>
+          <div className='icons flex gap-1 ms-5 p-3 md:gap-3'>
             <EllipsisHorizontalIcon className='md:w-6 cursor-pointer w-4' />
             <VideoCameraIcon className='md:w-6 cursor-pointer w-4' />
             <PencilSquareIcon className='md:w-6 cursor-pointer w-4' />
