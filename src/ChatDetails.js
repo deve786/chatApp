@@ -6,7 +6,8 @@ import { useChatStore } from './lib/chatStore'
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 import { Bounce, toast } from 'react-toastify'
 
-function ChatDetails() {
+function ChatDetails({data}) {
+  
   const { chatId, user, isRecieverBlocked, isCurrentUserBlocked, changeBlock } = useChatStore()
   const { currentuser } = useUserStore()
 
@@ -25,17 +26,18 @@ function ChatDetails() {
       console.log(error);
     }
   }
+  console.log(data);
 
   return (
-    <div className='flex-1 p-5 justify-between flex flex-col hidden md:block'>
+    <div className='flex-1  justify-between border-s border-gray-500 flex flex-col' style={{display:data?'none':'flex'}}>
       <div className='flex flex-col'>
-        <div className='flex justify-center flex-col items-center border-b pb-3'>
+        <div className='flex justify-center flex-col items-center  border-gray-500 border-b p-5'>
           <img src={user?.avatar || './avatar.jpg'} alt="" className='rounded-full w-16 h-16' />
           <p className='font-bold'>{user?.username}</p>
-          <p>Finding right path....</p>
+          
         </div>
 
-        <div>
+        <div className='p-5'>
           <div className='flex justify-between px-2 py-3'>
             <p className='text-md'>Chat Settings</p>
             <ChevronUpIcon className='w-6 cursor-pointer' />
@@ -63,7 +65,7 @@ function ChatDetails() {
         </div>
       </div>
 
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2 p-5'>
         <button onClick={handleBlock} className='px-4 py-1 bg-red-500 rounded'>
           {isCurrentUserBlocked ? "You are Blocked" : isRecieverBlocked ? "User Blocked" : "Block User"}
         </button>

@@ -2,6 +2,7 @@ import { arrayUnion, collection, doc, getDoc, getDocs, query, serverTimestamp, s
 import React, { useState } from 'react'
 import { db } from './lib/firebase'
 import { useUserStore } from './lib/userStore'
+import { Bounce, toast } from 'react-toastify'
 
 function AddChat({data}) {
   const [user, setUser] = useState(null)
@@ -64,6 +65,17 @@ function AddChat({data}) {
 
     } catch (error) {
       console.log(error);
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+    });
     }
   }
 

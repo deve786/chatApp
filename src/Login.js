@@ -33,6 +33,7 @@ function Login() {
         const { username, email, password } = Object.fromEntries(formData)
 
         try {
+
             const res = await createUserWithEmailAndPassword(auth, email, password)
 
             const imgUrl = await Upload(avatar.file)
@@ -64,8 +65,8 @@ function Login() {
         }
         catch (err) {
             console.log(err);
-            toast.success(err, {
-                position: "top-right",
+            toast.error(err.message, {
+                position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -75,6 +76,7 @@ function Login() {
                 theme: "light",
                 transition: Bounce,
             });
+
         }
         finally {
             setLoading(false)
@@ -103,6 +105,17 @@ function Login() {
         }
         catch (err) {
             console.log(err);
+            toast.error(err.message, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         }
         finally {
             setLoading(false)
@@ -113,19 +126,19 @@ function Login() {
     return (
 
         <>
-            <div className='flex flex-1 flex-col justify-center items-center gap-3'>
+            <div className='flex flex-1 border-e border-gray-500 flex-col justify-center items-center gap-3 p-5'>
                 <h3 className='text-2xl font-bold'>Welcome back</h3>
                 <form onSubmit={handleSignIn} className='flex flex-col justify-center items-center gap-3'>
                     <input type="text" className='bg-slate-500 px-3 py-2 outline-none border-none' name='email' placeholder='Email' />
                     <input type="password" className='bg-slate-500 px-3 py-2 outline-none border-none' name='password' placeholder='password' />
-                    <button className='bg-sky-600 px-5 py-2 rounded' disabled={loading}>Sign In</button>
+                    <button className='bg-sky-600 px-5 py-2 rounded' disabled={loading}>
+
+                        { loading? "Loading...": "Sign In" }</button>
                 </form>
             </div>
 
-            <div className='w-px bg-stone-400'>
 
-            </div>
-            <div className='flex flex-1 flex-col justify-center items-center gap-3'>
+            <div className='flex flex-1 flex-col justify-center items-center gap-3 p-5'>
 
                 <h3 className='text-2xl font-bold'>Create an Account</h3>
                 <form onSubmit={handleSignUp} className='flex flex-col justify-center items-center gap-3'>
@@ -137,10 +150,12 @@ function Login() {
                     <input type="text" className='bg-slate-500 px-3 py-2 outline-none border-none' name='username' placeholder='Username' />
                     <input type="text" className='bg-slate-500 px-3 py-2 outline-none border-none' name='email' placeholder='Email' />
                     <input type="password" className='bg-slate-500 px-3 py-2 outline-none border-none' name='password' placeholder='Password' />
-                    <button className='bg-sky-600 px-5 py-2 rounded' disable={loading} >Sign Up</button>
+                    <button className='bg-sky-600 px-5 py-2 rounded' disabled={loading}>
+                        {loading ? "Loading..." : "Sign Up"}
+                    </button>
                 </form>
             </div>
-            
+
         </>
 
     )
