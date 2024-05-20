@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { db } from './lib/firebase'
 import { useUserStore } from './lib/userStore'
 
-function AddChat() {
+function AddChat({data}) {
   const [user, setUser] = useState(null)
 
 
@@ -59,6 +59,7 @@ function AddChat() {
           updatedAt: Date.now()
         })
       })
+      data(false)
       console.log("add");
 
     } catch (error) {

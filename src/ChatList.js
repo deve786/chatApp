@@ -98,7 +98,7 @@ function ChatList() {
       </div>
       <div className='chat-center'></div>
       <div className='chat-right'></div>
-      {addUser && <AddChat />}
+      {addUser && <AddChat data={setAddUser}/>}
     </div>
   )
 }

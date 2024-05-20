@@ -132,7 +132,7 @@ function Chat() {
                     {img.url && (
                         <div className='message flex gap-2 mt-2 justify-end'>
                             <div>
-                                <img src={img.url} alt="" className='w-25' />
+                                <img src={img.url} alt="" className='w-52' />
                             </div>
                         </div>
                     )}
